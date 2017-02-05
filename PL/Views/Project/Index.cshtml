@@ -1,0 +1,77 @@
+﻿@model PL.Models.ProjectViewModel
+
+@{
+    ViewBag.Title = "Projects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Projects</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Customer
+        </th>
+        <th>
+            @foreach (var item in Model.IssueTypes)
+            {
+                <span>
+                    @Html.DisplayFor(modelItem => item)
+                </span>
+            }
+        </th>
+        <th>
+            @foreach (var item in Model.IssueStates)
+            {
+             <span>
+                 @Html.DisplayFor(modelItem => item)
+             </span>   
+                
+            }
+        </th>
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Projects)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Name)
+            </td>
+            <td>
+                @foreach (var n in item.IssueTypeNumbers)
+                {
+
+                    @Html.ActionLink(n + " ", "IssueByProject", "Issue", new { projectId =  item.Id}, new { })
+                    
+                 }
+
+</td>
+            <td>
+                @foreach (var n in item.IssueStateNumbers)
+                {
+                    @Html.ActionLink(n + " ", "IssueByProject", "Issue", new { projectId = item.Id }, new { })
+
+                }
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

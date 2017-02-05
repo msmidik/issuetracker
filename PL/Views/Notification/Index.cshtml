@@ -1,0 +1,43 @@
+﻿@model PL.Models.NotificationViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Notifications</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            User
+        </th>
+        <th>
+            Issue
+        </th>
+        <th>
+            SendEmail
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Notifications) {
+    <tr>
+        <td>
+            <b>@User.Identity.Name</b>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Issue.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendEmail)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id})
+
+        </td>
+    </tr>
+}
+
+</table>

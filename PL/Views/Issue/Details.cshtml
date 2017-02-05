@@ -1,0 +1,144 @@
+﻿@model PL.Models.IssueEditViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Details</h2>
+
+<div>
+    <h4>Issue</h4>
+
+
+    <hr />
+        <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.Project)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Issue.Project.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Issue.Type)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Issue.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.Informer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Issue.Informer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Issue.State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.Solver)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Issue.Solver.FirstName) @Html.DisplayFor(model => model.Issue.Solver.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.ApplicationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Issue.ApplicationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.FinishDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Issue.FinishDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Issue.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Issue.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@if (Model.HasNotification)
+{
+    <div>
+        <button type="button" class="btn btn-success btn-md">Notification Added</button>
+    </div>
+}
+else
+{
+    <div>
+        @Html.ActionLink("Add notification", "Create", "Notification", new { id = Model.Issue.Id }, new { @class = "btn btn-primary btn-md" })
+    </div>
+}
+
+
+
+<div>
+    <hr />
+    <h4>Comments</h4>
+
+
+        @foreach (var item in Model.CommentsAndNames)
+        {
+            <div class="form-group">
+                <b class="control-label col-md-2">@User.Identity.Name :</b>
+
+                @Html.DisplayFor(modelItem => item.Item1.Text)
+            </div>
+        }
+    <hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Issue.Id)
+
+        <div class="form-group">
+            <b class="control-label col-md-2">New comment</b>
+            @Html.TextAreaFor(model => model.NewComment.Text, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Send" class="btn btn-default" />
+            </div>
+        </div>
+}
+</div>
+<br />
